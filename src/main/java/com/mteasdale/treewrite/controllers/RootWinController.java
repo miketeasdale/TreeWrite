@@ -1,5 +1,6 @@
 package com.mteasdale.treewrite.controllers;
 
+import com.mteasdale.treewrite.model.StoryNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -16,7 +18,10 @@ import java.io.IOException;
  */
 public class RootWinController {
     @FXML
-    private TreeView<String> storyTreeView;
+    private TreeView<StoryNode> storyTreeView;
+
+    @FXML
+    private AnchorPane viewAnchorPane;
 
     private VBox storyNodeEditor;
 
@@ -38,14 +43,7 @@ public class RootWinController {
 
     @FXML
     void newTree(ActionEvent event) {
-        TreeItem<String> concept = new TreeItem<>("Story");
-        TreeItem<String> act1 = new TreeItem<>("Act 1");
-        TreeItem<String> act1_1 = new TreeItem<>("Introduction");
-        TreeItem<String> act1_2 = new TreeItem<>("Inciting Incident");
-        act1.getChildren().addAll(act1_1, act1_2);
-        TreeItem<String> act2 = new TreeItem<>("Act 2");
-        TreeItem<String> act3 = new TreeItem<>("Act 3");
-        concept.getChildren().addAll(act1, act2, act3);
-        storyTreeView.setRoot(concept);
+        StoryNode rootNode = StoryNode.getNewPitchNode();
+        storyTreeView.setRoot(new TreeItem<>(rootNode));
     }
 }
