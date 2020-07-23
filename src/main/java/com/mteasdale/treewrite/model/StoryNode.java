@@ -18,7 +18,7 @@ public class StoryNode {
     private String resolution;
     private ArrayList<StoryNode> childList;
 
-    public static StoryNode getNewStoryNode() {
+    public static StoryNode StoryNodeFactory() {
         return new StoryNode();
     }
 

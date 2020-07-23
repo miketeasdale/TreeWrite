@@ -19,7 +19,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/rootwin.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/views/rootwin.fxml"));
             Scene scene = new Scene(root);
             stage.setTitle("TreeWrite");
             stage.setScene(scene);
