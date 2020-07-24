@@ -1,7 +1,8 @@
 package com.mteasdale.treewrite.controllers;
 
-import com.mteasdale.treewrite.model.NodeClassifier;
 import com.mteasdale.treewrite.model.StoryNode;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,23 +29,40 @@ public class RootWinController {
             "TP3(50%): Point of No Return", "Complications and Higher Stakes", "TP4(75%): Major Setback"};
     private final String[] act3 = {"Final Push", "TP5(90-99%): Climax", "Denoument"};
 
+
+    private StoryNodeController storyNodeController;
+
     @FXML
     public void initialize() {
         try {
-            VBox storyNodeEditorPane = FXMLLoader.load(getClass().getResource("/views/storynode.fxml"));
+            // Load story node editor and add it to view pane.
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/storynode.fxml"));
+            VBox storyNodeEditorPane = loader.load();
+            storyNodeController = loader.getController();
             viewAnchorPane.getChildren().add(storyNodeEditorPane);
-            storyTreeView.setCellFactory(new StoryNodeCellFactory());
         } catch (IOException ioe) {
             System.out.println("Unable to load story node editor GUI.");
             ioe.printStackTrace();
+            System.exit(-1);
         }
+        storyTreeView.setCellFactory(new StoryNodeCellFactory());
+        storyTreeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<StoryNode>>() {
+            @Override
+            public void changed(ObservableValue<? extends TreeItem<StoryNode>> observableValue, TreeItem<StoryNode> oldValue, TreeItem<StoryNode> newValue) {
+                if (oldValue != null) {
+                    storyNodeController.unbindBiDirectional(oldValue.getValue());
+                }
+                storyNodeController.bindBiDirectional(newValue.getValue());
+            }
+        });
     }
 
     @FXML
     void newTree(ActionEvent event) {
-        StoryNode rootNode = StoryNode.StoryNodeFactory();
-        rootNode.setClassifier(NodeClassifier.PITCH);
+        StoryNode rootNode = new StoryNode();
+        rootNode.setClassifier(StoryNode.classifiers[0]);
         rootNode.setTitle("Story title");
         storyTreeView.setRoot(new TreeItem<>(rootNode));
+
     }
 }

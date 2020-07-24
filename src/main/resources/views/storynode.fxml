@@ -21,11 +21,11 @@
       <HBox alignment="CENTER_LEFT" spacing="5.0">
          <children>
             <Label text="Type:" />
-            <ChoiceBox fx:id="typeSelector" />
+            <ChoiceBox fx:id="classifierSelector" />
             <HBox alignment="CENTER_LEFT" spacing="5.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label text="Subtype:" />
-                  <ChoiceBox fx:id="subtypeSelector" HBox.hgrow="ALWAYS" />
+                  <ChoiceBox fx:id="subclassifierSelector" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>
