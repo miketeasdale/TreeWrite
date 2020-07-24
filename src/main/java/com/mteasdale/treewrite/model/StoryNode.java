@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by Michael Teasdale on 7/16/2020.
  */
 public class StoryNode {
-    public static final String[] classifiers = {"Pitch", "Act", "Plot", "Scene", "Other"};
+    public static final String[] classifiers = {"None", "Pitch", "Act", "Plot", "Scene", "Other"};
 
     private long id;
     private long parent;
@@ -22,6 +22,11 @@ public class StoryNode {
     private StringProperty conflict = new SimpleStringProperty();
     private StringProperty resolution = new SimpleStringProperty();
     private ArrayList<StoryNode> childList;
+
+    public StoryNode() {
+        setClassifier(classifiers[0]);
+        setTitle("Title");
+    }
 
     public long getId() {
         return id;
