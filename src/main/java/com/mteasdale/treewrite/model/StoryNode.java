@@ -3,24 +3,25 @@ package com.mteasdale.treewrite.model;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Michael Teasdale on 7/16/2020.
  */
-public class StoryNode {
+public class StoryNode implements Serializable {
     public static final String[] classifiers = {"None", "Pitch", "Act", "Plot", "Scene", "Other"};
 
     private long id;
     private long parent;
-    private StringProperty classifier = new SimpleStringProperty();
-    private StringProperty subclassifier = new SimpleStringProperty();
-    private StringProperty title = new SimpleStringProperty();
-    private StringProperty summary = new SimpleStringProperty();
-    private StringProperty povChar = new SimpleStringProperty();
-    private StringProperty goal = new SimpleStringProperty();
-    private StringProperty conflict = new SimpleStringProperty();
-    private StringProperty resolution = new SimpleStringProperty();
+    private final StringProperty classifier = new SimpleStringProperty();
+    private final StringProperty subclassifier = new SimpleStringProperty();
+    private final StringProperty title = new SimpleStringProperty();
+    private final StringProperty summary = new SimpleStringProperty();
+    private final StringProperty povChar = new SimpleStringProperty();
+    private final StringProperty goal = new SimpleStringProperty();
+    private final StringProperty conflict = new SimpleStringProperty();
+    private final StringProperty resolution = new SimpleStringProperty();
     private ArrayList<StoryNode> childList;
 
     public StoryNode() {
