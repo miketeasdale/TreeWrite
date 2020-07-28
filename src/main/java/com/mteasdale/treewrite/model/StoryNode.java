@@ -1,8 +1,5 @@
 package com.mteasdale.treewrite.model;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -14,20 +11,15 @@ public class StoryNode implements Serializable {
 
     private long id;
     private long parent;
-    private final StringProperty classifier = new SimpleStringProperty();
-    private final StringProperty subclassifier = new SimpleStringProperty();
-    private final StringProperty title = new SimpleStringProperty();
-    private final StringProperty summary = new SimpleStringProperty();
-    private final StringProperty povChar = new SimpleStringProperty();
-    private final StringProperty goal = new SimpleStringProperty();
-    private final StringProperty conflict = new SimpleStringProperty();
-    private final StringProperty resolution = new SimpleStringProperty();
-    private ArrayList<StoryNode> childList;
-
-    public StoryNode() {
-        setClassifier(classifiers[0]);
-        setTitle("Title");
-    }
+    private String classifier = "";
+    private String subclassifier = "";
+    private String title = "Story Node";
+    private String summary = "";
+    private String povChar = "";
+    private String goal = "";
+    private String conflict = "";
+    private String resolution = "";
+    private transient ArrayList<StoryNode> childList;
 
     public long getId() {
         return id;
@@ -46,99 +38,67 @@ public class StoryNode implements Serializable {
     }
 
     public String getClassifier() {
-        return classifier.get();
-    }
-
-    public StringProperty classifierProperty() {
         return classifier;
     }
 
     public void setClassifier(String classifier) {
-        this.classifier.set(classifier);
+        this.classifier = classifier;
     }
 
     public String getSubclassifier() {
-        return subclassifier.get();
-    }
-
-    public StringProperty subclassifierProperty() {
         return subclassifier;
     }
 
     public void setSubclassifier(String subclassifier) {
-        this.subclassifier.set(subclassifier);
+        this.subclassifier = subclassifier;
     }
 
     public String getTitle() {
-        return title.get();
-    }
-
-    public StringProperty titleProperty() {
         return title;
     }
 
     public void setTitle(String title) {
-        this.title.set(title);
+        this.title = title;
     }
 
     public String getSummary() {
-        return summary.get();
-    }
-
-    public StringProperty summaryProperty() {
         return summary;
     }
 
     public void setSummary(String summary) {
-        this.summary.set(summary);
+        this.summary = summary;
     }
 
     public String getPovChar() {
-        return povChar.get();
-    }
-
-    public StringProperty povCharProperty() {
         return povChar;
     }
 
     public void setPovChar(String povChar) {
-        this.povChar.set(povChar);
+        this.povChar = povChar;
     }
 
     public String getGoal() {
-        return goal.get();
-    }
-
-    public StringProperty goalProperty() {
         return goal;
     }
 
     public void setGoal(String goal) {
-        this.goal.set(goal);
+        this.goal = goal;
     }
 
     public String getConflict() {
-        return conflict.get();
-    }
-
-    public StringProperty conflictProperty() {
         return conflict;
     }
 
     public void setConflict(String conflict) {
-        this.conflict.set(conflict);
+        this.conflict = conflict;
     }
 
     public String getResolution() {
-        return resolution.get();
-    }
-
-    public StringProperty resolutionProperty() {
         return resolution;
     }
 
     public void setResolution(String resolution) {
-        this.resolution.set(resolution);
+        this.resolution = resolution;
     }
 
     public ArrayList<StoryNode> getChildList() {
@@ -148,4 +108,5 @@ public class StoryNode implements Serializable {
     public void setChildList(ArrayList<StoryNode> childList) {
         this.childList = childList;
     }
+
 }

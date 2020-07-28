@@ -49,10 +49,10 @@ public class RootWinController {
         storyTreeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<StoryNode>>() {
             @Override
             public void changed(ObservableValue<? extends TreeItem<StoryNode>> observableValue, TreeItem<StoryNode> oldValue, TreeItem<StoryNode> newValue) {
-                if (oldValue != null) {
-                    storyNodeController.unbindBiDirectional(oldValue.getValue());
-                }
-                storyNodeController.bindBiDirectional(newValue.getValue());
+                if (oldValue != null)
+                    storyNodeController.empty(oldValue.getValue());
+                if (newValue != null)
+                storyNodeController.fill(newValue.getValue());
             }
         });
     }
@@ -63,6 +63,5 @@ public class RootWinController {
         rootNode.setClassifier(StoryNode.classifiers[0]);
         rootNode.setTitle("Story title");
         storyTreeView.setRoot(new TreeItem<>(rootNode));
-
     }
 }
