@@ -21,6 +21,13 @@ public class StoryNode implements Serializable {
     private String resolution = "";
     private transient ArrayList<StoryNode> childList;
 
+    public StoryNode() {}
+
+    public StoryNode(String classifier, String title) {
+        this.classifier = classifier;
+        this.title = title;
+    }
+
     public long getId() {
         return id;
     }

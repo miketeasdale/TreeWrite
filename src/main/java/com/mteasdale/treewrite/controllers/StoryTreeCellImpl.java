@@ -6,6 +6,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOError;
 import java.util.Objects;
@@ -25,8 +27,10 @@ public class StoryTreeCellImpl extends TreeCell<StoryNode> {
     private static ImageView PITCH_ICON;
     private static ImageView PLOT_ICON;
     private static ImageView SCENE_ICON;
-    private TreeCell<StoryNode> dropZone;
-    private TreeItem<StoryNode> draggedItem;
+    private static TreeCell<StoryNode> dropZone;
+    private static TreeItem<StoryNode> draggedItem;
+
+    private final static Logger LOG = LoggerFactory.getLogger(StoryTreeCellImpl.class);
 
     public StoryTreeCellImpl() {
         //Item icons
@@ -87,7 +91,8 @@ public class StoryTreeCellImpl extends TreeCell<StoryNode> {
     }
 
     private void dragDetected(MouseEvent event) {
-        TreeItem<StoryNode> draggedItem = getTreeItem();
+        LOG.info("Starting drag.");
+        draggedItem = getTreeItem();
 
         // root can't be dragged
         if (draggedItem.getParent() == null) return;
@@ -103,19 +108,22 @@ public class StoryTreeCellImpl extends TreeCell<StoryNode> {
     private void dragOver(DragEvent event) {
         if (!event.getDragboard().hasContent(JAVA_FORMAT)) return;
         TreeItem<StoryNode> thisItem = getTreeItem();
+        //LOG.info("Dragged over: {}", thisItem.getValue().getTitle());
 
         // can't drop on itself
         if (draggedItem == null || thisItem == null || thisItem == draggedItem) return;
+        //LOG.info("Target is not itself.");
         // ignore if this is the root
         if (draggedItem.getParent() == null) {
             clearDropLocation();
             return;
         }
+        //LOG.info("Target is not the root.");
 
         event.acceptTransferModes(TransferMode.MOVE);
         if (!Objects.equals(dropZone, this)) {
             clearDropLocation();
-            this.dropZone = this;
+            dropZone = this;
             dropZone.setStyle(DROP_HINT_STYLE);
         }
     }
@@ -126,6 +134,7 @@ public class StoryTreeCellImpl extends TreeCell<StoryNode> {
 
         TreeItem<StoryNode> thisItem = getTreeItem();
         TreeItem<StoryNode> droppedItemParent = draggedItem.getParent();
+        LOG.info("Dropping onto {}", thisItem.getValue().getTitle());
 
         // remove from previous location
         droppedItemParent.getChildren().remove(draggedItem);

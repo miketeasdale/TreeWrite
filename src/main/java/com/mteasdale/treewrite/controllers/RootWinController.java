@@ -59,9 +59,13 @@ public class RootWinController {
 
     @FXML
     void newTree(ActionEvent event) {
-        StoryNode rootNode = new StoryNode();
-        rootNode.setClassifier(StoryNode.classifiers[0]);
-        rootNode.setTitle("Story title");
+        StoryNode rootNode = new StoryNode(StoryNode.classifiers[1], "Story Title" );
+        StoryNode node1 = new StoryNode(StoryNode.classifiers[2], acts[0]);
+        StoryNode node2 = new StoryNode(StoryNode.classifiers[2], acts[1]);
+        StoryNode node3 = new StoryNode(StoryNode.classifiers[2], acts[2]);
         storyTreeView.setRoot(new TreeItem<>(rootNode));
+        storyTreeView.getRoot().getChildren().add(new TreeItem<>(node1));
+        storyTreeView.getRoot().getChildren().add(new TreeItem<>(node2));
+        storyTreeView.getRoot().getChildren().add(new TreeItem<>(node3));
     }
 }
