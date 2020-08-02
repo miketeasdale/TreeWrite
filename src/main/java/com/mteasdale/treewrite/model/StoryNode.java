@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class StoryNode implements Serializable {
     public static final String[] classifiers = {"None", "Pitch", "Act", "Plot", "Scene", "Other"};
 
-    private long id;
-    private long parent;
+    private Integer id;
+    private Integer parent;
     private String classifier = "";
     private String subclassifier = "";
     private String title = "Story Node";
@@ -28,19 +28,19 @@ public class StoryNode implements Serializable {
         this.title = title;
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public long getParent() {
+    public Integer getParent() {
         return parent;
     }
 
-    public void setParent(long parent) {
+    public void setParent(Integer parent) {
         this.parent = parent;
     }
 
