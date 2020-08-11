@@ -1,0 +1,28 @@
+[
+	{
+	"classifier":"None",
+	"subclassifiers":"None"
+	},
+	{
+	"classifier":"Pitch",
+	"subclassifiers":"None"
+	},
+	{
+	"classifier":"Act",
+	"subclassifiers":["Act 1", "Act 2", "Act 3"]
+	},
+	{
+   	"classifier":"Plot Point",
+   	"subclassifiers":["Introduction", "Inciting Incident", "Setup", "TP1(10%): Opportunity", "New Situation",
+   	    "TP2(25%): Change of Plans", "Progress", "TP3(50%): Point of No Return", "Complications and Higher Stakes",
+   	    "TP4(75%): Major Setback", "Final Push", "TP5(90-99%): Climax", "Denouement"]
+   	},
+	{
+	"classifier":"Scene",
+	"subclassifiers":["Action", "Reaction"]
+	},
+    {
+    "classifier":"Other",
+    "subclassifiers":["None"]
+    }
+]

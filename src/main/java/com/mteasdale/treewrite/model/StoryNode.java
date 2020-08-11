@@ -7,8 +7,6 @@ import java.util.ArrayList;
  * Created by Michael Teasdale on 7/16/2020.
  */
 public class StoryNode implements Serializable {
-    public static final String[] classifiers = {"None", "Pitch", "Act", "Plot", "Scene", "Other"};
-
     private Integer id;
     private Integer parent;
     private String classifier = "";

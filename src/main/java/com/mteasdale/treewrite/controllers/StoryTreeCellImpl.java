@@ -1,8 +1,12 @@
 package com.mteasdale.treewrite.controllers;
 
 import com.mteasdale.treewrite.model.StoryNode;
+import com.mteasdale.treewrite.model.StoryStructure;
 import javafx.event.ActionEvent;
-import javafx.scene.control.*;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TreeCell;
+import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
@@ -10,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOError;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -20,11 +25,13 @@ public class StoryTreeCellImpl extends TreeCell<StoryNode> {
     private static final DataFormat JAVA_FORMAT = new DataFormat("application/x-java-serialized-object");
 
     private static final String PITCHICONPATH = "/images/study.png";
+    private static final String ACTICONPATH = "/images/theatre.png";
     private static final String PLOTICONPATH = "/images/analytic.png";
     private static final String SCENEICONPATH = "/images/clapperboard.png";
     private static final String DROP_HINT_STYLE = "-fx-border-color: #eea82f; -fx-border-width: 0 0 2 0; -fx-padding: 3 3 1 3";
     private final ContextMenu storyItemMenu = new ContextMenu();
     private static ImageView PITCH_ICON;
+    private static ImageView ACT_ICON;
     private static ImageView PLOT_ICON;
     private static ImageView SCENE_ICON;
     private static TreeCell<StoryNode> dropZone;
@@ -35,6 +42,7 @@ public class StoryTreeCellImpl extends TreeCell<StoryNode> {
     public StoryTreeCellImpl() {
         //Item icons
         if (PITCH_ICON == null) PITCH_ICON = getImageView(PITCHICONPATH);
+        if (ACT_ICON == null) ACT_ICON = getImageView(ACTICONPATH);
         if (PLOT_ICON == null) PLOT_ICON = getImageView(PLOTICONPATH);
         if (SCENE_ICON == null) SCENE_ICON = getImageView(SCENEICONPATH);
 
@@ -63,7 +71,7 @@ public class StoryTreeCellImpl extends TreeCell<StoryNode> {
         ImageView iv = null;
         try {
             iv = new ImageView(
-                    new Image(getClass().getResourceAsStream(path), 32, 0, true, true)
+                    new Image(getClass().getResourceAsStream(path), 16, 0, true, true)
             );
         }
         catch (IOError ioe) {
@@ -81,9 +89,11 @@ public class StoryTreeCellImpl extends TreeCell<StoryNode> {
             setText(null);
         } else {
             ImageView iv1 = null;
-            if (storyNode.getClassifier().equals(StoryNode.classifiers[1])) iv1 = PITCH_ICON;
-            if (storyNode.getClassifier().equals(StoryNode.classifiers[2])) iv1 = PLOT_ICON;
-            if (storyNode.getClassifier().equals(StoryNode.classifiers[3])) iv1 = SCENE_ICON;
+            ArrayList<String> classifiers = new StoryStructure().getClassifiers();
+            if (storyNode.getClassifier().equals(classifiers.get(0))) iv1 = PITCH_ICON;
+            if (storyNode.getClassifier().equals(classifiers.get(1))) iv1 = PLOT_ICON;
+            if (storyNode.getClassifier().equals(classifiers.get(2))) iv1 = SCENE_ICON;
+            if (storyNode.getClassifier().equals(classifiers.get(3))) iv1 = ACT_ICON;
             setGraphic(iv1);
             setText(storyNode.getTitle());
             setContextMenu(storyItemMenu);

@@ -1,7 +1,9 @@
 package com.mteasdale.treewrite.controllers;
 
 import com.mteasdale.treewrite.model.StoryNode;
+import com.mteasdale.treewrite.model.StoryStructure;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -43,45 +45,13 @@ public class StoryNodeController {
     @FXML
     private Button saveButton;
 
-    public TextField getTitleField() {
-        return titleField;
-    }
-
-    public ChoiceBox<?> getClassifierSelector() {
-        return classifierSelector;
-    }
-
-    public ChoiceBox<?> getSubclassifierSelector() {
-        return subclassifierSelector;
-    }
-
-    public TextField getGoalField() {
-        return goalField;
-    }
-
-    public TextField getConflictField() {
-        return conflictField;
-    }
-
-    public TextField getResolutionField() {
-        return resolutionField;
-    }
-
-    public TextArea getSummaryArea() {
-        return summaryArea;
-    }
-
-    public Button getCancelButton() {
-        return cancelButton;
-    }
-
-    public Button getSaveButton() {
-        return saveButton;
-    }
-
     @FXML
     public void initialize() {
-        classifierSelector.setItems(FXCollections.observableList(Arrays.asList(StoryNode.classifiers)));
+        StoryStructure structure = new StoryStructure();
+        classifierSelector.setItems(FXCollections.observableList(structure.getClassifiers());
+        classifierSelector.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            subclassifierSelector.setItems(FXCollections.observableList(structure.getSubclassifiers(newValue)));
+        });
     }
 
     @FXML

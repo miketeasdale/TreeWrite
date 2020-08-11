@@ -3,8 +3,11 @@ package com.mteasdale.treewrite.controllers;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mteasdale.treewrite.model.StoryNode;
+import com.mteasdale.treewrite.model.StoryStructure;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
@@ -34,14 +37,6 @@ public class RootWinController {
     private static Path savePath;
     private final Gson gson = new Gson();
 
-    private final String[] acts = {"Act 1", "Act 2", "Act 3"};
-    /*
-    private final String[] act1 = {"Introduction", "Inciting Incident", "Setup", "TP1(10%): Opportunity"};
-    private final String[] act2 = {"New Situation", "TP2(25%): Change of Plans", "Progress",
-            "TP3(50%): Point of No Return", "Complications and Higher Stakes", "TP4(75%): Major Setback"};
-    private final String[] act3 = {"Final Push", "TP5(90-99%): Climax", "Denouement"};
-     */
-
     private StoryNodeController storyNodeController;
 
     @FXML
@@ -68,14 +63,20 @@ public class RootWinController {
 
     @FXML
     private void newTree() {
-        StoryNode rootNode = new StoryNode(StoryNode.classifiers[1], "Story Title" );
-        StoryNode node1 = new StoryNode(StoryNode.classifiers[2], acts[0]);
-        StoryNode node2 = new StoryNode(StoryNode.classifiers[2], acts[1]);
-        StoryNode node3 = new StoryNode(StoryNode.classifiers[2], acts[2]);
-        storyTreeView.setRoot(new TreeItem<>(rootNode));
-        storyTreeView.getRoot().getChildren().add(new TreeItem<>(node1));
-        storyTreeView.getRoot().getChildren().add(new TreeItem<>(node2));
-        storyTreeView.getRoot().getChildren().add(new TreeItem<>(node3));
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("New Story Tree");
+        alert.setHeaderText("Press OK to create a Full Story Tree.\nPress CANCEL to create an Empty Story Tree.");
+        alert.showAndWait().ifPresent(buttonType ->
+            storyTreeView.setRoot((buttonType == ButtonType.OK) ? createFullStoryTree() : createEmptyStoryTree()));
+    }
+
+    private TreeItem<StoryNode> createFullStoryTree() {
+        return null;
+    }
+
+    private TreeItem<StoryNode> createEmptyStoryTree() {
+        StoryNode rootNode = new StoryNode(new StoryStructure().getClassifiers().get(0), "Story Title" );
+        return new TreeItem<>(rootNode);
     }
 
     @FXML
