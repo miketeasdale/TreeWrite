@@ -21,9 +21,10 @@ public class StoryNode implements Serializable {
 
     public StoryNode() {}
 
-    public StoryNode(String classifier, String title) {
+    public StoryNode(String classifier, String subclassifier) {
         this.classifier = classifier;
-        this.title = title;
+        this.subclassifier = subclassifier;
+        this.title = subclassifier;
     }
 
     public Integer getId() {

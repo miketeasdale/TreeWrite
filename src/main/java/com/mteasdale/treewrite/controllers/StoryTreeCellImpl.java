@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOError;
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -89,11 +88,10 @@ public class StoryTreeCellImpl extends TreeCell<StoryNode> {
             setText(null);
         } else {
             ImageView iv1 = null;
-            ArrayList<String> classifiers = new StoryStructure().getClassifiers();
-            if (storyNode.getClassifier().equals(classifiers.get(0))) iv1 = PITCH_ICON;
-            if (storyNode.getClassifier().equals(classifiers.get(1))) iv1 = PLOT_ICON;
-            if (storyNode.getClassifier().equals(classifiers.get(2))) iv1 = SCENE_ICON;
-            if (storyNode.getClassifier().equals(classifiers.get(3))) iv1 = ACT_ICON;
+            if (storyNode.getClassifier().equals(StoryStructure.THREE_ACT_CLASSIFIERS[1])) iv1 = PITCH_ICON;
+            if (storyNode.getClassifier().equals(StoryStructure.THREE_ACT_CLASSIFIERS[3])) iv1 = PLOT_ICON;
+            if (storyNode.getClassifier().equals(StoryStructure.THREE_ACT_CLASSIFIERS[4])) iv1 = SCENE_ICON;
+            if (storyNode.getClassifier().equals(StoryStructure.THREE_ACT_CLASSIFIERS[2])) iv1 = ACT_ICON;
             setGraphic(iv1);
             setText(storyNode.getTitle());
             setContextMenu(storyItemMenu);

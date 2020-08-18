@@ -47,8 +47,7 @@ public class StoryNodeController {
 
     @FXML
     public void initialize() {
-        StoryStructure structure = new StoryStructure();
-        classifierSelector.setItems(FXCollections.observableList(structure.getClassifiers());
+        classifierSelector.setItems(FXCollections.observableList(Arrays.asList(StoryStructure.THREE_ACT_CLASSIFIERS)));
         classifierSelector.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             subclassifierSelector.setItems(FXCollections.observableList(structure.getSubclassifiers(newValue)));
         });
