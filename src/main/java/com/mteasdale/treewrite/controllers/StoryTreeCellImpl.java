@@ -1,7 +1,6 @@
 package com.mteasdale.treewrite.controllers;
 
 import com.mteasdale.treewrite.model.StoryNode;
-import com.mteasdale.treewrite.model.StoryStructure;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -88,10 +87,10 @@ public class StoryTreeCellImpl extends TreeCell<StoryNode> {
             setText(null);
         } else {
             ImageView iv1 = null;
-            if (storyNode.getClassifier().equals(StoryStructure.THREE_ACT_CLASSIFIERS[1])) iv1 = PITCH_ICON;
-            if (storyNode.getClassifier().equals(StoryStructure.THREE_ACT_CLASSIFIERS[3])) iv1 = PLOT_ICON;
-            if (storyNode.getClassifier().equals(StoryStructure.THREE_ACT_CLASSIFIERS[4])) iv1 = SCENE_ICON;
-            if (storyNode.getClassifier().equals(StoryStructure.THREE_ACT_CLASSIFIERS[2])) iv1 = ACT_ICON;
+            if (storyNode.getClassifier().equals("Pitch")) iv1 = PITCH_ICON;
+            if (storyNode.getClassifier().equals("Plot")) iv1 = PLOT_ICON;
+            if (storyNode.getClassifier().equals("Scene")) iv1 = SCENE_ICON;
+            if (storyNode.getClassifier().equals("Act")) iv1 = ACT_ICON;
             setGraphic(iv1);
             setText(storyNode.getTitle());
             setContextMenu(storyItemMenu);

@@ -1,12 +1,11 @@
 package com.mteasdale.treewrite.controllers;
 
 import com.mteasdale.treewrite.model.StoryNode;
-import com.mteasdale.treewrite.model.StoryStructure;
+import com.mteasdale.treewrite.model.ThreeActStoryStructure;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -39,28 +38,28 @@ public class StoryNodeController {
     @FXML
     private TextArea summaryArea;
 
-    @FXML
-    private Button cancelButton;
-
-    @FXML
-    private Button saveButton;
+    private final ThreeActStoryStructure structure = new ThreeActStoryStructure();
+    private final ChangeListener<String> classifierListener = new ChangeListener<>() {
+        @Override
+        public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+            if (newValue != null) {
+                ThreeActStoryStructure structure = new ThreeActStoryStructure();
+                subclassifierSelector.setItems(FXCollections.observableList(
+                        new ArrayList<>(Arrays.asList(structure.CLASSIFIER_MAP.get(newValue)))));
+            }
+        }
+    };
 
     @FXML
     public void initialize() {
-        classifierSelector.setItems(FXCollections.observableList(Arrays.asList(StoryStructure.THREE_ACT_CLASSIFIERS)));
-        classifierSelector.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            subclassifierSelector.setItems(FXCollections.observableList(structure.getSubclassifiers(newValue)));
-        });
-    }
-
-    @FXML
-    private void cancel(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void save(ActionEvent event) {
-
+        classifierSelector.setItems(FXCollections.observableList(new ArrayList<>(structure.CLASSIFIER_MAP.keySet())));
+        classifierSelector.getSelectionModel().selectedItemProperty().
+                addListener(((observableValue, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        subclassifierSelector.setItems(FXCollections.observableList(
+                                new ArrayList<>(Arrays.asList(structure.CLASSIFIER_MAP.get(newValue)))));
+                    }
+                }));
     }
 
     public void fill(StoryNode storyNode) {
