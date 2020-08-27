@@ -4,14 +4,16 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.scene.control.TreeItem;
 
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by Michael Teasdale on 8/25/2020.
@@ -34,6 +36,21 @@ public class FileIO {
                 root = getStoryNodeTree(result);
             } catch (IOException ioe) {
                 System.out.println("File read error.");
+            }
+        }
+        return root;
+    }
+
+    public TreeItem<StoryNode> openResource(String resource) {
+        TreeItem<StoryNode> root = null;
+        if (resource != null) {
+            InputStreamReader reader = new InputStreamReader(getClass().getResourceAsStream(resource));
+            try (BufferedReader bufferedReader = new BufferedReader(reader)) {
+                String result = bufferedReader.lines().collect(Collectors.joining("\n"));
+                root = getStoryNodeTree(result);
+            } catch (IOException ioe) {
+                System.out.println("Error reading resource " + resource);
+                ioe.printStackTrace();
             }
         }
         return root;
