@@ -2,11 +2,6 @@ package com.mteasdale.treewrite.model;
 
 import javafx.scene.control.TreeItem;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 
 /**
@@ -17,7 +12,7 @@ public class ThreeActStoryStructure implements StoryStructure {
     private static final FileIO FILE_IO = new FileIO();
     private static final String STRUCTUREFILE = "/structures/ThreeAct.twr";
 
-    public static final HashMap<String, String[]> CLASSIFIER_MAP = new HashMap<>();
+    private static final HashMap<String, String[]> CLASSIFIER_MAP = new HashMap<>();
 
     public ThreeActStoryStructure() {
         if (CLASSIFIER_MAP.isEmpty()) {
@@ -30,6 +25,10 @@ public class ThreeActStoryStructure implements StoryStructure {
                     "TP3(50%): Point of No Return", "Complications and Higher Stakes", "TP4(75%): Major Setback"});
             CLASSIFIER_MAP.put("Act 3", new String[]{"Final Push", "TP5(90-99%): Climax", "Denouement"});
         }
+    }
+
+    public HashMap<String, String[]> getClassifierMap() {
+        return CLASSIFIER_MAP;
     }
 
     public TreeItem<StoryNode> getStoryTree() {

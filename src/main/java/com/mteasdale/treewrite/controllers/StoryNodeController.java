@@ -27,6 +27,9 @@ public class StoryNodeController {
     private ChoiceBox<String> subclassifierSelector;
 
     @FXML
+    private TextField povField;
+
+    @FXML
     private TextField goalField;
 
     @FXML
@@ -45,21 +48,16 @@ public class StoryNodeController {
             if (newValue != null) {
                 ThreeActStoryStructure structure = new ThreeActStoryStructure();
                 subclassifierSelector.setItems(FXCollections.observableList(
-                        new ArrayList<>(Arrays.asList(structure.CLASSIFIER_MAP.get(newValue)))));
+                        new ArrayList<>(Arrays.asList(structure.getClassifierMap().get(newValue)))));
             }
         }
     };
 
     @FXML
     public void initialize() {
-        classifierSelector.setItems(FXCollections.observableList(new ArrayList<>(structure.CLASSIFIER_MAP.keySet())));
+        classifierSelector.setItems(FXCollections.observableList(new ArrayList<>(structure.getClassifierMap().keySet())));
         classifierSelector.getSelectionModel().selectedItemProperty().
-                addListener(((observableValue, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        subclassifierSelector.setItems(FXCollections.observableList(
-                                new ArrayList<>(Arrays.asList(structure.CLASSIFIER_MAP.get(newValue)))));
-                    }
-                }));
+                addListener(classifierListener);
     }
 
     public void fill(StoryNode storyNode) {
@@ -67,6 +65,7 @@ public class StoryNodeController {
         subclassifierSelector.setValue(storyNode.getSubclassifier());
         titleField.setText(storyNode.getTitle());
         summaryArea.setText(storyNode.getSummary());
+        povField.setText(storyNode.getPovChar());
         goalField.setText(storyNode.getGoal());
         conflictField.setText(storyNode.getConflict());
         resolutionField.setText(storyNode.getResolution());
@@ -77,6 +76,7 @@ public class StoryNodeController {
         storyNode.setSubclassifier(subclassifierSelector.getValue());
         storyNode.setTitle(titleField.getText());
         storyNode.setSummary(summaryArea.getText());
+        storyNode.setPovChar(povField.getText());
         storyNode.setGoal(goalField.getText());
         storyNode.setConflict(conflictField.getText());
         storyNode.setResolution(resolutionField.getText());
