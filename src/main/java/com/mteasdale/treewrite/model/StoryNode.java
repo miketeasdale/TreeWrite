@@ -9,15 +9,16 @@ import java.util.ArrayList;
 public class StoryNode implements Serializable {
     private Integer id;
     private Integer parent;
-    private String classifier = "";
-    private String subclassifier = "";
+    private Integer position;
+    private String classifier;
+    private String subclassifier;
     private String title = "Story Node";
-    private String summary = "";
-    private String povChar = "";
-    private String goal = "";
-    private String conflict = "";
-    private String resolution = "";
-    private transient ArrayList<StoryNode> childList;
+    private String summary;
+    private String povChar;
+    private String goal;
+    private String conflict;
+    private String resolution;
+    private final transient ArrayList<StoryNode> childList = new ArrayList<>();
 
     public StoryNode() {}
 
@@ -41,6 +42,14 @@ public class StoryNode implements Serializable {
 
     public void setParent(Integer parent) {
         this.parent = parent;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
     }
 
     public String getClassifier() {
@@ -107,12 +116,15 @@ public class StoryNode implements Serializable {
         this.resolution = resolution;
     }
 
-    public ArrayList<StoryNode> getChildList() {
-        return childList;
+    public void addChildNode(StoryNode node) {
+        childList.add(node);
     }
 
-    public void setChildList(ArrayList<StoryNode> childList) {
-        this.childList = childList;
+    public void removeChildNode(StoryNode node) {
+        childList.remove(node);
     }
 
+    public StoryNode getChildNode(int index) {
+        return childList.get(index);
+    }
 }
